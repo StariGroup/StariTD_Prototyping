@@ -5,15 +5,15 @@ using UnityEngine.UI;
 public class EditorUI : MonoBehaviour {
 
     public Text buildingName;
-    public string name;
+    public string appellation;
 
     void Start()
     {
-        name = "BRAK";
+        appellation = "BRAK";
     }
 
     void Update ()
     {
-            buildingName.text = name;
+            buildingName.text = appellation;
 	}
 }

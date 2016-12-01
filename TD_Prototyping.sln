@@ -1,6 +1,8 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2008
 
+Project("{B3BF9C20-4ACC-F1E7-6FE2-806F8B9AAD69}") = "TD_Prototyping", "Assembly-CSharp-firstpass.csproj", "{3B8B5ADA-43FC-2836-B638-8299083B18AF}"
+EndProject
 Project("{B3BF9C20-4ACC-F1E7-6FE2-806F8B9AAD69}") = "TD_Prototyping", "Assembly-CSharp.csproj", "{9DCA68F4-9271-3C4C-9282-E903ADC9066A}"
 EndProject
 Project("{B3BF9C20-4ACC-F1E7-6FE2-806F8B9AAD69}") = "TD_Prototyping", "Assembly-CSharp-Editor.csproj", "{AB39DBD7-06DC-69D8-8665-8400A1402B7A}"
@@ -11,6 +13,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3B8B5ADA-43FC-2836-B638-8299083B18AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B8B5ADA-43FC-2836-B638-8299083B18AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B8B5ADA-43FC-2836-B638-8299083B18AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B8B5ADA-43FC-2836-B638-8299083B18AF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9DCA68F4-9271-3C4C-9282-E903ADC9066A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9DCA68F4-9271-3C4C-9282-E903ADC9066A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DCA68F4-9271-3C4C-9282-E903ADC9066A}.Release|Any CPU.ActiveCfg = Release|Any CPU

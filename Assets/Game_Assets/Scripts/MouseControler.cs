@@ -17,7 +17,6 @@ public class MouseControler : MonoBehaviour {
     public Vector3 mouseDownPoint;
     public Vector3 currentMousePosition;
     public bool selected = false;
-    public Unit selectedUnit;
 
     void Awake ()
     {
@@ -29,10 +28,9 @@ public class MouseControler : MonoBehaviour {
 	
 	void Update ()
     {
-
         Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ignoreLayer))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -50,32 +48,32 @@ public class MouseControler : MonoBehaviour {
                 else if (Input.GetMouseButtonUp(0) && playerClickedLeftMouse(mouseDownPoint))
                     Deselecting();
             }//end of terrain
-            else if (Input.GetMouseButtonUp(0) && playerClickedLeftMouse(mouseDownPoint))
+            else if (Input.GetMouseButtonUp(0) && playerClickedLeftMouse(mouseDownPoint))//if player clicked left mouse
             {
                 if (hit.collider.transform.FindChild("Selector"))
                 {
                     Debug.Log("Found selectable");
-                    if (currentlySelected != hit.collider.gameObject)
+                    if (currentlySelected != hit.collider.gameObject && !bManager.counting)
                     {
                         GameObject SelectedObj = hit.collider.transform.FindChild("Selector").gameObject;
                         SelectedObj.SetActive(true);
-                        selectedUnit = hit.collider.GetComponent<Unit>();
                         if (currentlySelected != null)
                         {
                             currentlySelected.transform.FindChild("Selector").gameObject.SetActive(false);
                         }
                         currentlySelected = hit.collider.gameObject;
                         selected = true;
-                        output.name = selectedUnit.name;
+                        output.appellation = currentlySelected.name;
                     }
                 }
                 else
                     Deselecting();
             }
+            /*
             else if(hit.collider.name != "Terrain" && bManager.isPlaced)
             {
                 ignoreLayer = 8;
-            }
+            }*/
         }//end of raycast
         else if (Input.GetMouseButtonUp(0) && playerClickedLeftMouse(mouseDownPoint))
         {
@@ -109,8 +107,7 @@ public class MouseControler : MonoBehaviour {
             currentlySelected.transform.FindChild("Selector").gameObject.SetActive(false);
             currentlySelected = null;
             selected = false;
-            selectedUnit = null;
-            output.name = "BRAK";
+            output.appellation = "BRAK";
         }
     }
 
