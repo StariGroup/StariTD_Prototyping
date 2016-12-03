@@ -2,7 +2,8 @@
 using System.Collections;
 
 public class Buildings : MonoBehaviour {
-    
+
+
     public class building
     {
         public string appellation;

@@ -3,13 +3,15 @@ using System.Collections;
 
 public class BuldingManager : MonoBehaviour {
 
-    public GameObject barracks;
+    //references
     public BuildingPlacement placement;
-    public Barracks barracksComponent;
     public MouseControler mControler;
-    public bool isPlaced = false;
+    //building
     public GameObject buildingBarracks;
-    public GameObject creatingChopek;
+    public GameObject barracks;
+    public bool isPlaced = false;
+    public GameObject barracksUnit1;
+    //time for selecting
     public float timer;
     public bool counting;
 
@@ -36,9 +38,10 @@ public class BuldingManager : MonoBehaviour {
             Destroy(buildingBarracks.GetComponent<BuildingPlacement>());
             buildingBarracks.transform.position = mControler.currentMousePosition;
             buildingBarracks.AddComponent<Barracks>();
-            barracksComponent.chopek = creatingChopek;
             isPlaced = false;
             counting = true;
+            //unit
+            buildingBarracks.GetComponent<Barracks>().chopek = barracksUnit1;
         }
         if (Input.GetMouseButtonDown(1) && isPlaced)
         {
