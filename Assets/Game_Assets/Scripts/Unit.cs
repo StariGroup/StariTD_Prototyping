@@ -33,6 +33,12 @@ public class Unit : MonoBehaviour {
             hp = build.chopek.health;
             id = build.chopek.id;
         }
+        if (gameObject.name == "EnemyTower")
+        {
+            appelation = build.tower.appellation;
+            hp = build.tower.health;
+            id = build.tower.id;
+        }
     }
 
 }
