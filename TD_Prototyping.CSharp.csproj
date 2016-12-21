@@ -77,7 +77,9 @@
     <Compile Include="Assets\Game_Assets\Scripts\Buildings\Buildings.cs" />
     <Compile Include="Assets\Game_Assets\Scripts\Buildings\BuldingManager.cs" />
     <Compile Include="Assets\Game_Assets\Scripts\EditorUI.cs" />
+    <Compile Include="Assets\Game_Assets\Scripts\EnemyBuilding.cs" />
     <Compile Include="Assets\Game_Assets\Scripts\MouseControler.cs" />
+    <Compile Include="Assets\Game_Assets\Scripts\Path.cs" />
     <Compile Include="Assets\Game_Assets\Scripts\RemoveGameObject.cs" />
     <Compile Include="Assets\Game_Assets\Scripts\Unit.cs" />
     <Compile Include="Assets\RTS_Camera\Demo\DemoScene.cs" />

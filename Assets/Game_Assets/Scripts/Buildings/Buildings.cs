@@ -22,6 +22,7 @@ public class Buildings : MonoBehaviour {
     public building castle = new building("Castle", 100, 001);
     public building barracks = new building("Barracks", 50, 002);
     public building chopek = new building("Chopek", 25, 003);
+    public building tower = new building("Tower", 40, 004);
 
 
 }
