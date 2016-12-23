@@ -17,13 +17,11 @@ public class Barracks : MonoBehaviour {
 	void Update ()
     {
         timer += Time.deltaTime;
-        Debug.Log(timer);
         if (timer >= 5)
         {
             newUnit = Instantiate(chopek, spawningPosition, Quaternion.identity) as GameObject;
             newUnit.name = "Chopek";
             timer = 0;
-            Debug.Log("Unit have spawned");
         }
     }
 }

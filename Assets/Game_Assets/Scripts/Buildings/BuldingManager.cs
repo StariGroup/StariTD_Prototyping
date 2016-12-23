@@ -24,7 +24,6 @@ public class BuldingManager : MonoBehaviour {
 
     void Update ()
     {
-        Debug.Log(timer);
         if (Input.GetKeyDown("b") && !isPlaced)
         {
             mControler.Deselecting();

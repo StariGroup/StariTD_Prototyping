@@ -10,10 +10,11 @@ public class EditorUI : MonoBehaviour {
     void Start()
     {
         appellation = "BRAK";
+
     }
 
     void Update ()
     {
-            buildingName.text = appellation;
+        buildingName.text = appellation;
 	}
 }
