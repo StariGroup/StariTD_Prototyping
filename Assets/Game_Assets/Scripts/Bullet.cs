@@ -12,7 +12,7 @@ public class Bullet : MonoBehaviour {
     {
         enemyBuilding = GameObject.FindGameObjectWithTag("Enemy").GetComponent<EnemyBuilding>();
         unit = GameObject.FindGameObjectWithTag("Unit").GetComponent<Unit>();
-        speed = 70f;
+        speed = 130f;
         target = enemyBuilding.enemyToShoot;
     }
 	
@@ -38,7 +38,7 @@ public class Bullet : MonoBehaviour {
 
     public void HitTarget()
     {
-        //dojscie do skryptu Unit targetu
+        target.GetComponent<Unit>().hp -= 25;
         Destroy(this.gameObject);
     }
 
