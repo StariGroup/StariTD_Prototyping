@@ -5,14 +5,17 @@ public class Unit : MonoBehaviour {
 
     private Buildings build;
     private MouseControler mControler;
+    private EditorUI output;
     public string appelation;
     public float hp;
     public int id;
+    public float currentHp;
 
     void Start ()
     {
         build = GameObject.FindGameObjectWithTag("Manager").GetComponent<Buildings>();
         mControler = GameObject.FindGameObjectWithTag("Controler").GetComponent<MouseControler>();
+        output = GameObject.FindGameObjectWithTag("Manager").GetComponent<EditorUI>();
 
         if (gameObject.name == "Castle")
         {
@@ -41,4 +44,11 @@ public class Unit : MonoBehaviour {
         }
     }
 
+    void Update()
+    {
+        if (hp <= 0)
+        {
+            Destroy(this.gameObject);
+        }
+    }
 }
