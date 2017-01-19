@@ -1,10 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnemyBuilding : MonoBehaviour
+public class Shooting : MonoBehaviour
 {
-    //references
-    private Unit unit;
     //targeting
     public string playerTag;
     public GameObject[] playerUnit;
@@ -18,11 +16,11 @@ public class EnemyBuilding : MonoBehaviour
     private float fireCountdown;
     public GameObject bullet;
     private Vector3 shootingPosition;
+    public GameObject newBullet;
 
     void Start()
     {
-        unit = GameObject.FindGameObjectWithTag("Unit").GetComponent<Unit>();
-        playerTag = "Unit";
+        playerTag = "PlayerUnit";
         range = 50f;
         fireRate = 1f;
         fireCountdown = 0f;
@@ -50,8 +48,8 @@ public class EnemyBuilding : MonoBehaviour
 
             if (fireCountdown <= 0f)
             {
-                Shooting();
-                fireCountdown = 1f;
+                Firing();
+                fireCountdown = fireRate;
             }
 
             fireCountdown -= Time.deltaTime;
@@ -68,8 +66,10 @@ public class EnemyBuilding : MonoBehaviour
         Gizmos.DrawWireSphere(this.gameObject.transform.position, range);
     }
 
-    public void Shooting()
+    public void Firing()
     {
-        Instantiate(bullet, shootingPosition, Quaternion.identity);
+        newBullet = Instantiate(bullet, shootingPosition, Quaternion.identity) as GameObject;
+        newBullet.name = "Bullet1";
+        newBullet.GetComponent<BulletMoving>().target = enemyToShoot;
     }
 }

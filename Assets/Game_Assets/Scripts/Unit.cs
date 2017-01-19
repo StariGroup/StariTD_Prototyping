@@ -1,54 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Unit : MonoBehaviour {
-
-    private Buildings build;
-    private MouseControler mControler;
-    private EditorUI output;
-    public string appelation;
-    public float hp;
-    public int id;
-    public float currentHp;
-
-    void Start ()
+public class Unit : MonoBehaviour
+{
+    public class unit
     {
-        build = GameObject.FindGameObjectWithTag("Manager").GetComponent<Buildings>();
-        mControler = GameObject.FindGameObjectWithTag("Controler").GetComponent<MouseControler>();
-        output = GameObject.FindGameObjectWithTag("Manager").GetComponent<EditorUI>();
+        public string appellation;
+        public float health;
+        public int id;
 
-        if (gameObject.name == "Castle")
+        public unit(string _name, float hp, int index)
         {
-            appelation = build.castle.appellation;
-            hp = build.castle.health;
-            id = build.castle.id;
+            appellation = _name;
+            health = hp;
+            id = index;
         }
-        if (gameObject.name == "Barracks")
-        {
-            appelation = build.barracks.appellation;
-            hp = build.barracks.health;
-            id = build.barracks.id;
 
-        }
-        if (gameObject.name == "Chopek")
-        {
-            appelation = build.chopek.appellation;
-            hp = build.chopek.health;
-            id = build.chopek.id;
-        }
-        if (gameObject.name == "EnemyTower")
-        {
-            appelation = build.tower.appellation;
-            hp = build.tower.health;
-            id = build.tower.id;
-        }
     }
+    //definitions of units
+    public unit chopek = new unit("Chopek", 25, 003);
 
-    void Update()
-    {
-        if (hp <= 0)
-        {
-            Destroy(this.gameObject);
-        }
-    }
 }

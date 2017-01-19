@@ -1,45 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Bullet : MonoBehaviour {
-
-    private Unit unit;
-    private EnemyBuilding enemyBuilding;
-    private GameObject target;
-    private float speed;
-
-	void Start ()
+public class Bullet : MonoBehaviour
+{
+    public class bullet
     {
-        enemyBuilding = GameObject.FindGameObjectWithTag("Enemy").GetComponent<EnemyBuilding>();
-        unit = GameObject.FindGameObjectWithTag("Unit").GetComponent<Unit>();
-        speed = 130f;
-        target = enemyBuilding.enemyToShoot;
-    }
-	
-	void Update ()
-    {
-        if (target == null)
+        public float speed;
+        public float damage;
+        public float fireRate;
+        public bullet(float _speed, float dmg, float _fireRate)
         {
-            Destroy(this.gameObject);
-            return;
+            speed = _speed;
+            damage = dmg;
+            fireRate = _fireRate;
         }
 
-        Vector3 dir = target.transform.position - this.gameObject.transform.position;
-        float distancePerFrame = speed * Time.deltaTime;
-
-        if (dir.magnitude <= distancePerFrame)
-        {
-            HitTarget();
-            return;
-        }
-
-        transform.Translate(dir.normalized * distancePerFrame, Space.World);
-	}
-
-    public void HitTarget()
-    {
-        target.GetComponent<Unit>().hp -= 25;
-        Destroy(this.gameObject);
     }
+    //definitions of units
+    public bullet smallBullet = new bullet(0.0001f, 50, 10f);
 
 }

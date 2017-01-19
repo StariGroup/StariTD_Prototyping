@@ -5,7 +5,6 @@ public class MouseControler : MonoBehaviour {
 
     //references
     public EditorUI output;
-    public Unit unit;
     public BuldingManager bManager;
     //racast
     RaycastHit hit;
@@ -21,7 +20,6 @@ public class MouseControler : MonoBehaviour {
     void Awake ()
     {
         output = GameObject.FindGameObjectWithTag("Manager").GetComponent<EditorUI>();
-        unit = GameObject.FindGameObjectWithTag("Unit").GetComponent<Unit>();
         bManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<BuldingManager>();
         mouseDownPoint = Vector3.zero;
 	}
