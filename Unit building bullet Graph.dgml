@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+    <Node Id="Atrybuty" Bounds="-1483.29331409347,-463.8892398074,65.5033333333331,25.96" Label="Atrybuty" />
+    <Node Id="Atrybuty1" Bounds="-1099.00752194515,-463.601817922704,65.5033333333331,25.96" Label="Atrybuty" />
+    <Node Id="Atrybuty2" Bounds="-894.566211344401,-453.515796128757,65.5033333333333,25.96" Label="Atrybuty" />
+    <Node Id="Building" Bounds="-1119.00752194515,-503.601917922704,105.503333333333,85.9602" Group="Expanded" UseManualLocation="True" />
+    <Node Id="BuildingAssign" Bounds="-1133.64592504545,-361.752025846409,135.096666666667,85.9602" Group="Expanded" UseManualLocation="True" />
+    <Node Id="BuldingAssign" Bounds="-1113.64592504545,-321.751925846409,95.0966666666668,25.96" />
+    <Node Id="Bullet" Bounds="-914.566211344401,-493.515905442722,105.503333333333,85.9602" Group="Expanded" UseManualLocation="True" />
+    <Node Id="BulletAssign" Bounds="-931.197252197266,-360.043536730957,124.516666666667,85.9602" Group="Expanded" Label="BulletAssign" UseManualLocation="True" />
+    <Node Id="BulletAssign1" Bounds="-911.197252197266,-320.043436730957,84.5166666666667,25.96" Label="BulletAssign" />
+    <Node Id="BulletMoving" Bounds="-910.572630198225,-224.920166070127,90.1433333333334,25.96" UseManualLocation="True" />
+    <Node Id="BulletToBuilding" Bounds="-1297.43725219727,-323.942051391602,59.8933333333334,25.96" Label="Prefaby" />
+    <Node Id="BulletToBulding" Bounds="-1328.6805855306,-363.942151391602,122.38,85.9602000000001" Group="Expanded" UseManualLocation="True" />
+    <Node Id="Shooting" Bounds="-1098.5973879158,-227.791820335209,68.0533333333333,25.96" Label="Shooting" UseManualLocation="True" />
+    <Node Id="UnitAssign" Bounds="-1480.66638033285,-304.242960186843,76.6966666666667,25.96" />
+    <Node Id="UnitAssign1" Bounds="-1500.66638033285,-344.243060186843,116.696666666667,85.9602" Group="Expanded" Label="UnitAssign" UseManualLocation="True" />
+    <Node Id="UnitClass" Bounds="-1503.29331409347,-503.8893398074,105.503333333333,85.9602" Group="Expanded" Label="Unit" UseManualLocation="True" />
+  </Nodes>
+  <Links>
+    <Link Source="Atrybuty" Target="UnitAssign" Bounds="-1221.59063160175,-396.88946105957,1.45762219991389,99.4104436344612" />
+    <Link Source="Atrybuty1" Target="BuldingAssign" Bounds="-1119.29606487117,-404.74785949707,3.9852612734926,90.9235106667147" />
+    <Link Source="Atrybuty2" Target="BulletAssign1" Bounds="-928.81925611938,-410.970668334961,14.1356885820993,98.284390047685" />
+    <Link Source="Building" Target="Atrybuty1" Category="Contains" />
+    <Link Source="BuildingAssign" Target="BuldingAssign" Category="Contains" />
+    <Link Source="BuldingAssign" Target="Shooting" Bounds="-1065.88668756723,-295.791926879883,0.958830872056751,59.0012940902449" />
+    <Link Source="Bullet" Target="Atrybuty2" Category="Contains" Bounds="-841.831570246522,-452.956329345703,6.08558717246694,45.229863895984" />
+    <Link Source="BulletAssign" Target="BulletAssign1" Category="Contains" />
+    <Link Source="BulletAssign1" Target="BulletMoving" Bounds="-868.469809483515,-294.083446044922,2.17464115226926,60.169148145246" />
+    <Link Source="BulletToBuilding" Target="BuldingAssign" Bounds="-1232.54393391927,-307.52784959862,89.9000061822171,1.92466982345087" />
+    <Link Source="BulletToBulding" Target="BulletToBuilding" Category="Contains" />
+    <Link Source="Shooting" Target="BulletMoving" Bounds="-1030.54401204427,-214.320973621976,110.972318111178,1.60081709218383" />
+    <Link Source="UnitAssign1" Target="UnitAssign" Category="Contains" />
+    <Link Source="UnitClass" Target="Atrybuty" Category="Contains" />
+  </Links>
+  <Categories>
+    <Category Id="Contains" Label="Contains" Description="Whether the source of the link contains the target object" CanBeDataDriven="False" CanLinkedNodesBeDataDriven="True" IncomingActionLabel="Contained By" IsContainment="True" OutgoingActionLabel="Contains" />
+  </Categories>
+  <Properties>
+    <Property Id="Bounds" DataType="System.Windows.Rect" />
+    <Property Id="CanBeDataDriven" Label="CanBeDataDriven" Description="CanBeDataDriven" DataType="System.Boolean" />
+    <Property Id="CanLinkedNodesBeDataDriven" Label="CanLinkedNodesBeDataDriven" Description="CanLinkedNodesBeDataDriven" DataType="System.Boolean" />
+    <Property Id="Expression" DataType="System.String" />
+    <Property Id="Group" Label="Group" Description="Display the node as a group" DataType="Microsoft.VisualStudio.GraphModel.GraphGroupStyle" />
+    <Property Id="GroupLabel" DataType="System.String" />
+    <Property Id="IncomingActionLabel" Label="IncomingActionLabel" Description="IncomingActionLabel" DataType="System.String" />
+    <Property Id="IsContainment" DataType="System.Boolean" />
+    <Property Id="IsEnabled" DataType="System.Boolean" />
+    <Property Id="Label" Label="Label" Description="Displayable label of an Annotatable object" DataType="System.String" />
+    <Property Id="OutgoingActionLabel" Label="OutgoingActionLabel" Description="OutgoingActionLabel" DataType="System.String" />
+    <Property Id="TargetType" DataType="System.Type" />
+    <Property Id="UseManualLocation" DataType="System.Boolean" />
+    <Property Id="Value" DataType="System.String" />
+    <Property Id="ValueLabel" DataType="System.String" />
+  </Properties>
+  <Styles>
+    <Style TargetType="Node" GroupLabel="Comment" ValueLabel="Has comment">
+      <Condition Expression="HasCategory('Comment')" />
+      <Setter Property="Background" Value="#FFFFFACD" />
+      <Setter Property="Stroke" Value="#FFE5C365" />
+      <Setter Property="StrokeThickness" Value="1" />
+      <Setter Property="NodeRadius" Value="2" />
+      <Setter Property="MaxWidth" Value="250" />
+    </Style>
+  </Styles>
+</DirectedGraph>

@@ -3,59 +3,62 @@ using System.Collections;
 
 public class BulletMoving : MonoBehaviour
 {
-    public BulletAssign round;
-    private Shooting enemyBuilding;
+    //references
+    private Shooting shooting;
+    private BulletAssign bulletAttributes;
+    //retrieved variables
     public GameObject target;
-    public Vector3 positionTest;
-    public Vector3 startPosition;
-    private float speed;
-    private float damage;
-    public float timeInterval;
-    public float startTime;
-    public float distance;
+    public float speed;
+    public float damage;
+    //variables for moving
+    private Vector3 startPosition;
+    private Vector3 targetPosition;
+    private float distance;
+    private float startTime;
+    private float distanceToHit;
+    private float changingDistance;
 
     void Start()
     {
-        positionTest = new Vector3(30, 30, -30);
-        startPosition = new Vector3(0, 2, -90);
-        distance = Vector3.Distance(startPosition, target.transform.position);
-        startTime = Time.time;   
-        round = GetComponent<BulletAssign>();
-        speed = round.speed;
-        damage = round.damage;
+        bulletAttributes = GetComponent<BulletAssign>();
+        speed = bulletAttributes.speed;
+        damage = bulletAttributes.damage;
+        startPosition = this.gameObject.transform.position;
+        targetPosition = target.transform.position;
+        startTime = Time.time;
+        distance = Vector3.Distance(startPosition, targetPosition);
     }
 
     void Update()
-    { 
-        timeInterval = Time.time - startTime;
-        this.gameObject.transform.position = Vector3.Lerp(startPosition, target.transform.position, timeInterval * speed / distance);
+    {
         if (target == null)
         {
             Destroy(this.gameObject);
             return;
         }
-        if (Vector3.Distance(startPosition, target.transform.position) >= 10f)
+        changingDistance = Vector3.Distance(startPosition, targetPosition);
+        targetPosition = target.transform.position;
+        float distCovered = (Time.time - startTime) * speed;
+        float journey = distCovered / distance;
+        this.gameObject.transform.position = Vector3.Lerp(startPosition, targetPosition, journey);
+
+        if (distCovered >= changingDistance)
         {
             HitTarget();
         }
-        /*
-        Vector3 dir = positionTest - this.gameObject.transform.position;
-        float distancePerFrame = speed * Time.deltaTime;
-        transform.Translate(dir.normalized * distancePerFrame, Space.World);
-        if (dir.magnitude <= distancePerFrame)
-        {
-            HitTarget();
-            return;
-        }
-        */
 
     }
 
     public void HitTarget()
     {
         target.GetComponent<UnitAssign>().hp -= damage;
+        if (target.GetComponent<UnitAssign>().hp <= 0)
+        {
+            target = null;
+            Destroy(this.gameObject);
+        }
+
         Destroy(this.gameObject);
-        Debug.Log("Elo");
     }
 
 }

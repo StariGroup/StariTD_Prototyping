@@ -5,22 +5,18 @@ public class MouseControler : MonoBehaviour {
 
     //references
     public EditorUI output;
-    public BuldingManager bManager;
+    public BuildingManager bManager;
     //racast
     RaycastHit hit;
     public Camera playerCamera;
-    public GameObject target;
-    public int ignoreLayer;
     //selecting
-    public GameObject currentlySelected;
     public Vector3 mouseDownPoint;
     public Vector3 currentMousePosition;
-    public bool selected = false;
 
     void Awake ()
     {
         output = GameObject.FindGameObjectWithTag("Manager").GetComponent<EditorUI>();
-        bManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<BuldingManager>();
+        bManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<BuildingManager>();
         mouseDownPoint = Vector3.zero;
 	}
 	
@@ -34,7 +30,6 @@ public class MouseControler : MonoBehaviour {
             {
                 mouseDownPoint = hit.point;
             }
-            Debug.Log("Hit " + hit.collider.name);
             if (hit.collider.name == "Terrain")
             {
                 currentMousePosition = hit.point;
@@ -50,8 +45,7 @@ public class MouseControler : MonoBehaviour {
             {
                 if (hit.collider.transform.FindChild("Selector"))
                 {
-                    Debug.Log("Found selectable");
-                    if (currentlySelected != hit.collider.gameObject && !bManager.counting)
+                    if (currentlySelected != hit.collider.gameObject)
                     {
                         GameObject SelectedObj = hit.collider.transform.FindChild("Selector").gameObject;
                         SelectedObj.SetActive(true);
@@ -68,19 +62,20 @@ public class MouseControler : MonoBehaviour {
                     Deselecting();
             }
             /*
-            else if(hit.collider.name != "Terrain" && bManager.isPlaced)
+            else if (hit.collider.name != "Terrain" && bManager.isBuilding)
             {
-                ignoreLayer = 8;
-            }*/
+               
+            }
+            */
+
+            Debug.DrawRay(ray.origin, ray.direction * Mathf.Infinity, Color.red);
+
         }//end of raycast
         else if (Input.GetMouseButtonUp(0) && playerClickedLeftMouse(mouseDownPoint))
         {
             Deselecting();
         }
 
-
-
-        Debug.DrawRay(ray.origin, ray.direction * Mathf.Infinity, Color.red);
 	}
 
     #region helpers

@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Shooting : MonoBehaviour
 {
+    //references
+    public BuildingAssign attribute;
     //targeting
     public string playerTag;
     public GameObject[] playerUnit;
@@ -12,19 +14,19 @@ public class Shooting : MonoBehaviour
     public float range;
     public float distance;
     //shooting
-    private float fireRate;
+    public float fireRating;
     private float fireCountdown;
-    public GameObject bullet;
-    private Vector3 shootingPosition;
-    public GameObject newBullet;
+    public Vector3 startingBulletPosition;
+    public GameObject bulletToShot;
 
     void Start()
     {
+        startingBulletPosition = this.gameObject.transform.position;
+        attribute = GetComponent<BuildingAssign>();
+        fireRating = attribute.fireRate;
+        range = attribute.range;
         playerTag = "PlayerUnit";
-        range = 50f;
-        fireRate = 1f;
         fireCountdown = 0f;
-        shootingPosition = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 20, this.gameObject.transform.position.z);
     }
 
     void Update()
@@ -49,7 +51,7 @@ public class Shooting : MonoBehaviour
             if (fireCountdown <= 0f)
             {
                 Firing();
-                fireCountdown = fireRate;
+                fireCountdown = fireRating;
             }
 
             fireCountdown -= Time.deltaTime;
@@ -68,8 +70,8 @@ public class Shooting : MonoBehaviour
 
     public void Firing()
     {
-        newBullet = Instantiate(bullet, shootingPosition, Quaternion.identity) as GameObject;
-        newBullet.name = "Bullet1";
-        newBullet.GetComponent<BulletMoving>().target = enemyToShoot;
+        bulletToShot = Instantiate(attribute.usingBullet, startingBulletPosition, Quaternion.identity) as GameObject;
+        bulletToShot.name = "Bullet1";
+        bulletToShot.GetComponent<BulletMoving>().target = enemyToShoot;
     }
 }

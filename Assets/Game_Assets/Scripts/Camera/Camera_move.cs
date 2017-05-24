@@ -17,9 +17,10 @@ public class Camera_move : MonoBehaviour {
 	public static Camera_move Instance; //stworzenie obiektu klasy danego pliku(który jest klasą)
 
 	private float cameraMoveSpeed = 50f; //Jak szybko kamera się przesuwa
-	private float mouseBoundary = 30f; //Jak daleko od granic ekranu myszka musi być żeby zacząć przesuwać kamerę
+	private float mouseBoundary = 10f; //Jak daleko od granic ekranu myszka musi być żeby zacząć przesuwać kamerę
 
-	private float mouseX;//zmienne do rotacji
+	private float mouseX;//zmienna do rotacji
+	private float impactOffset = -0.000001f;
 
 	void Awake()
 	{
@@ -41,21 +42,46 @@ public class Camera_move : MonoBehaviour {
 
 	void LateUpdate()
 	{
-		HandleMouseRotation ();//Funkcja do rotacji kamery
+		//HandleMouseRotation ();//Funkcja do rotacji kamery
 
 		if(CheckIfUserCameraInput()) //Czy jest myszka na granicy ekranu albo wciśnięty przycisk ruszający kamerę
 		{
 			Vector3 cameraDesireMove = GetDesiredTranslation(); //Vector kamery z pozycją na którą przeskoczy w następnym framie
-			if(!IsDesiredPositionOverBoundaries(cameraDesireMove)) // Czy ta pozycja jest dopuszczalna
+			//Stara wersja
+			/*if(!IsDesiredPositionOverBoundaries(cameraDesireMove)) // Czy ta pozycja jest dopuszczalna
 			{
-				//Vector3 clampedCameraDesireMove = new Vector3 (Mathf.Clamp(cameraDesireMove.x,cameraLimits.LeftLimit,cameraLimits.RightLimit),cameraDesireMove.y,Mathf.Clamp(cameraDesireMove.z,cameraLimits.BottomLimit,cameraLimits.TopLimit));
 				this.transform.Translate(cameraDesireMove, Space.Self); //Przesuń
 			}else{
 				this.transform.Translate(-40 * cameraDesireMove, Space.Self);
+			}*/
+
+			//Nowa wersja
+			//Sprawdza czy każdy warunek przesuwania jest spełniony
+			if(CanIMoveDown(cameraDesireMove) && CanIMoveUp(cameraDesireMove) && CanIMoveRight(cameraDesireMove) && CanIMoveLeft(cameraDesireMove) )
+			{
+				this.transform.Translate(cameraDesireMove, Space.Self); //Przesuń
+			}else if(CanIMoveRight(cameraDesireMove) == false && CanIMoveUp(cameraDesireMove) == true && CanIMoveDown(cameraDesireMove) == true)
+			{
+				this.transform.Translate(0,0,cameraDesireMove.z, Space.Self);
+			}else if(CanIMoveLeft(cameraDesireMove) == false && CanIMoveUp(cameraDesireMove) == true && CanIMoveDown(cameraDesireMove) == true)
+			{
+				this.transform.Translate(0,0,cameraDesireMove.z, Space.Self);
+			}else if(CanIMoveUp(cameraDesireMove) == false && CanIMoveLeft(cameraDesireMove) == true && CanIMoveRight(cameraDesireMove) == true)
+			{
+				this.transform.Translate(cameraDesireMove.x,0,0, Space.Self);
+			}else if(CanIMoveDown(cameraDesireMove) == false && CanIMoveLeft(cameraDesireMove) == true && CanIMoveRight(cameraDesireMove) == true)
+			{
+				this.transform.Translate(cameraDesireMove.x,0,0, Space.Self);
+			}else{ //Jeżeli jesteś w rogu
+				this.transform.Translate(impactOffset * cameraDesireMove, Space.Self);
 			}
 		}
 
 		mouseX = Input.mousePosition.x;
+		if(Input.GetMouseButtonUp(2))
+		{
+			this.transform.Rotate(0, 0, 0);
+		}
 	}
 
 	//Obracanie kamerą
@@ -115,6 +141,8 @@ public class Camera_move : MonoBehaviour {
 
 	}
 
+	#region HelperFunctions
+
 	public bool IsDesiredPositionOverBoundaries(Vector3 desiredPosition)
 	{
 		return  (this.transform.position.x + desiredPosition.x) < cameraLimits.LeftLimit ||
@@ -123,23 +151,45 @@ public class Camera_move : MonoBehaviour {
 			(this.transform.position.z + desiredPosition.z) < cameraLimits.BottomLimit;
 	}
 
-	/*public Vector3 HowMuchIsDesiredPositionOverBoundaries(Vector3 desiredPosition)
+	public bool CanIMoveLeft(Vector3 desiredPosition)
 	{
-		if ((this.transform.position.x + desiredPosition.x) < cameraLimits.LeftLimit) 
+		if ((this.transform.position.x + desiredPosition.x) > cameraLimits.LeftLimit) 
 		{
-			return new Vector3 ((cameraLimits.LeftLimit - this.transform.position.x + desiredPosition.x) * -1, 0, 0);
-		} else if ((this.transform.position.x + desiredPosition.x) > cameraLimits.RightLimit) 
-		{
-			return new Vector3 ((cameraLimits.RightLimit - this.transform.position.x + desiredPosition.x) * -1, 0, 0);
-		} else if ((this.transform.position.z + desiredPosition.z) > cameraLimits.TopLimit) 
-		{
-			return new Vector3 ((0 , 0, cameraLimits.TopLimit - this.transform.position.z + desiredPosition.z) * -1);
+			return true;
+		}else{
+			return false;
 		}
-		else if((this.transform.position.z + desiredPosition.z) < cameraLimits.BottomLimit)
+	}
+
+	public bool CanIMoveRight(Vector3 desiredPosition)
+	{
+		if ((this.transform.position.x + desiredPosition.x) < cameraLimits.RightLimit) 
 		{
-			return new Vector3 ((0 , 0, cameraLimits.BottomLimit - this.transform.position.z + desiredPosition.z) * -1);
+			return true;
+		}else{
+			return false;
 		}
-	}*/
+	}
+
+	public bool CanIMoveUp(Vector3 desiredPosition)
+	{
+		if ((this.transform.position.z + desiredPosition.z) < cameraLimits.TopLimit) 
+		{
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	public bool CanIMoveDown(Vector3 desiredPosition)
+	{
+		if ((this.transform.position.z + desiredPosition.z) > cameraLimits.BottomLimit) 
+		{
+			return true;
+		}else{
+			return false;
+		}
+	}
 
 	public static bool AreCameraKeyboardButtonsPressed() //kontrolki
 	{
@@ -155,4 +205,5 @@ public class Camera_move : MonoBehaviour {
 			(Input.mousePosition.y < mouseScrollLimits.BottomLimit && Input.mousePosition.y > -25)||
 			(Input.mousePosition.y > (Screen.height-mouseScrollLimits.TopLimit)  && Input.mousePosition.y < (Screen.height + 25) );
 	}
+	#endregion
 }
